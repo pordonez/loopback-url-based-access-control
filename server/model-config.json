@@ -8,7 +8,8 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -27,6 +28,18 @@
     "public": true
   },
   "Project": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Team": {
+    "dataSource": "db",
+    "public": true
+  },
+  "AccessManager": {
     "dataSource": "db",
     "public": true
   }
