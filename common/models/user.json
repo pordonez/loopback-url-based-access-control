@@ -1,0 +1,23 @@
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "projects": {
+      "type": "hasMany",
+      "model": "Project",
+      "foreignKey": "userId",
+      "through": "Team"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "accessManager",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

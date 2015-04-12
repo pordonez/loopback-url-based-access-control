@@ -1,20 +1,17 @@
 {
-  "name": "Project",
+  "name": "Team",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "name": {
-      "type": "string"
+    "projectId": {
+      "type": "number"
+    },
+    "userId": {
+      "type": "number"
     }
   },
   "validations": [],
-  "relations": {
-    "members": {
-      "type": "hasMany",
-      "model": "Team",
-      "foreignKey": "projectId"
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",
@@ -25,11 +22,8 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": [
-        "create"
-      ]
+      "principalId": "$owner",
+      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",
