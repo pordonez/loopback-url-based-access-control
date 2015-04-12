@@ -11,32 +11,12 @@ module.exports = function(AccessManager) {
                                      baseUrl,
                                      userId,
                                      callback) {
-    var Role = AccessManager.app.models.Role;
-    var RoleMapping = AccessManager.app.models.RoleMapping;
-    var ACL = AccessManager.app.models.ACL;
 
-    //create the admin role
-    var roleName = roleType + ':' + baseUrl; 
-    Role.create({name: roleName}, function(err, role) {
-      debug('createModelRole() Creating Role: ' + util.inspect(role) + ', err: ' + err);
-      if (err)  {
-        if (callback) callback(err); else throw err;
-      }
-
-      // make the logged in user an admin
-      role.principals.create({principalType: RoleMapping.USER, principalId: userId}, 
-        function(err, roleMapping) {
-        debug('manageInstance() Creating RoleMapping: ' + util.inspect(roleMapping) + ', err: ' + util.inspect(err));
-        if (err)  {
-          if (callback) callback(err); else throw err;
-        }
-        AccessManager.create({baseUrl: baseUrl,
-                              roleType: roleType, 
-                              userId: userId}, function(err, am) {
-          debug('manageInstance() Creating AccessManager: ' + util.inspect(am) + ', err: ' + util.inspect(err));
-          if (callback) callback(err, am); else throw err;
-        });
-      });
+    AccessManager.create({baseUrl: baseUrl,
+                          roleType: roleType, 
+                          userId: userId}, function(err, am) {
+      debug('manageUrl() Creating AccessManager: ' + util.inspect(am) + ', err: ' + util.inspect(err));
+      if (callback) callback(err, am); else throw err;
     });
   };
 
@@ -46,28 +26,51 @@ module.exports = function(AccessManager) {
 
       function reject() {
         process.nextTick(function() {
-          debug('resolver() nextTick() role: ' + util.inspect(role) + 
+          debug('resolver() nextTick() reject() role: ' + util.inspect(role) + 
                 ', principals: ' + util.inspect(context.principals) +
                 ', originalUrl: ' + context.remotingContext.req.originalUrl +
                 ', allowed: false');
           if (cb) cb(null, false);
         });
       }
+
       var principals = context.principals;
+      var originalUrl = context.remotingContext.req.originalUrl
       if (!principals || !principals[0] || !principals[0].id) 
         return reject();
 
-      AccessManager.find({where: {and: 
-        [{userId: principals[0].id}]}},
-        function(err, rules) {
-          var allowed = true;
-          debug('resolver() nextTick() For id: ' + principals[0].id + ' found access manager rules: ' + util.inspect(rules));
-          debug('resolver() nextTick() role: ' + util.inspect(role) + 
-                ', principals: ' + util.inspect(context.principals) +
-                ', originalUrl: ' + context.remotingContext.req.originalUrl + 
-                ', allowed: ' + allowed);
+      // searchFor should include substring search on URL!!!
+      var searchFor = {where: {userId: principals[0].id}};
+      debug('resolver() nextTick() Searching for userId = %s', principals[0].id);
 
-          if (cb) cb(null, allowed);
+      AccessManager.find(searchFor, function(err, rules) {
+        var allowed = true;
+        debug('resolver() nextTick() find result. id: ' + principals[0].id + 
+              ' access manager rules: ' + util.inspect(rules) +
+              ' err: ' + err);
+        if (err) throw err;
+
+        if (!rules.length)
+          return reject();
+
+        var filteredRules = rules.filter(
+          function(rule) {
+            var res = (new RegExp(rule.baseUrl)).test(originalUrl);
+            debug('resolver() nextTick() Test rule result: %s, baseUrl %s, originalUrl: %s', 
+              res, rule.baseUrl, originalUrl);
+            return res;
+          });
+
+        debug('resolver() nextTick() Filtered result: ' + util.inspect(filteredRules));  
+        if (!filteredRules.length)
+          return reject();
+
+        debug('resolver() nextTick() role: ' + util.inspect(role) + 
+              ', principals: ' + util.inspect(context.principals) +
+              ', originalUrl: ' + originalUrl + 
+              ', allowed: ' + allowed);
+
+        if (cb) cb(null, allowed);
       });
     });
   }
