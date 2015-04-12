@@ -3,9 +3,6 @@
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "instId": {
-      "type": "number"
-    },
     "baseUrl": {
       "type": "string"
     },
@@ -15,11 +12,6 @@
   },
   "validations": [],
   "relations": {
-    "aCLs": {
-      "type": "hasMany",
-      "model": "ACL",
-      "foreignKey": "aclId"
-    },
     "users": {
       "type": "hasMany",
       "model": "user",

@@ -20,12 +20,10 @@ module.exports = function(Project) {
       debug('afterRemote(create) Creating team: ' + util.inspect(team) + ', err: ' + util.inspect(err));
       if (err) throw err;
 
-      AccessManager.manageBaseUrl(AccessManager.ADMIN,
-                                  'Project',
-                                  context.req.baseUrl,
-                                  project.id,
-                                  accessToken.userId, 
-                                  function(err, am) {
+      AccessManager.manageUrl(AccessManager.ADMIN,
+                              context.req.baseUrl + '/' + project.id,
+                              accessToken.userId, 
+                              function(err, am) {
         debug('afterRemote(create) Managing instance. am: ' + util.inspect(am) + ', err: ' + util.inspect(err), ', calling next()');
         next();
       });

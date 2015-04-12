@@ -7,18 +7,16 @@ module.exports = function(AccessManager) {
   AccessManager.READER = 'reader';
   AccessManager.WRITER = 'writer';
 
-  AccessManager.manageBaseUrl = function(roleType, 
-                                         modelName,
-                                         baseUrl,
-                                         instId,
-                                         userId,
-                                         callback) {
+  AccessManager.manageUrl = function(roleType, 
+                                     baseUrl,
+                                     userId,
+                                     callback) {
     var Role = AccessManager.app.models.Role;
     var RoleMapping = AccessManager.app.models.RoleMapping;
     var ACL = AccessManager.app.models.ACL;
 
     //create the admin role
-    var roleName = roleType + ':' + baseUrl + '/' + instId
+    var roleName = roleType + ':' + baseUrl; 
     Role.create({name: roleName}, function(err, role) {
       debug('createModelRole() Creating Role: ' + util.inspect(role) + ', err: ' + err);
       if (err)  {
@@ -32,28 +30,12 @@ module.exports = function(AccessManager) {
         if (err)  {
           if (callback) callback(err); else throw err;
         }
-/*
-        ACL.create({model: modelName,
-                    principalType: ACL.ROLE, 
-                    principalId: role.name,
-                    property: 'findById',
-                    accessType: "READ", 
-                    permission: ACL.ALLOW}, function(err, acl) {
-          debug('manageInstance() Creating ACL: ' + util.inspect(acl) + ', err: ' + util.inspect(err));
-          if (err)  {
-            if (callback) callback(err); else throw err;
-          }
-*/
-          AccessManager.create({instId: instId,
-                                baseUrl: baseUrl,
-                                roleType: roleType, 
-//                                aclId: acl.id, 
-                                aclId: 0, 
-                                userId: userId}, function(err, am) {
-            debug('manageInstance() Creating AccessManager: ' + util.inspect(am) + ', err: ' + util.inspect(err));
-            if (callback) callback(err, am); else throw err;
-          });
-//        });
+        AccessManager.create({baseUrl: baseUrl,
+                              roleType: roleType, 
+                              userId: userId}, function(err, am) {
+          debug('manageInstance() Creating AccessManager: ' + util.inspect(am) + ', err: ' + util.inspect(err));
+          if (callback) callback(err, am); else throw err;
+        });
       });
     });
   };
@@ -61,16 +43,32 @@ module.exports = function(AccessManager) {
   AccessManager.resolver = function(role, context, cb) {
     debug('resolver() Resolving role: ' + util.inspect(role));
     process.nextTick(function() {
-      var allowed = true;
 
-      debug('resolver() nextTick() role: ' + util.inspect(role) + 
-            ', principals: ' + util.inspect(context.principals) +
-            ', modelName: ' + context.modelName + 
-            ', modelId: ' + context.modelId + 
-            ', originalUrl: ' + context.remotingContext.req.originalUrl + 
-            ', allowed: ' + allowed);
+      function reject() {
+        process.nextTick(function() {
+          debug('resolver() nextTick() role: ' + util.inspect(role) + 
+                ', principals: ' + util.inspect(context.principals) +
+                ', originalUrl: ' + context.remotingContext.req.originalUrl +
+                ', allowed: false');
+          if (cb) cb(null, false);
+        });
+      }
+      var principals = context.principals;
+      if (!principals || !principals[0] || !principals[0].id) 
+        return reject();
 
-      if (cb) cb(null, allowed);
+      AccessManager.find({where: {and: 
+        [{userId: principals[0].id}]}},
+        function(err, rules) {
+          var allowed = true;
+          debug('resolver() nextTick() For id: ' + principals[0].id + ' found access manager rules: ' + util.inspect(rules));
+          debug('resolver() nextTick() role: ' + util.inspect(role) + 
+                ', principals: ' + util.inspect(context.principals) +
+                ', originalUrl: ' + context.remotingContext.req.originalUrl + 
+                ', allowed: ' + allowed);
+
+          if (cb) cb(null, allowed);
+      });
     });
   }
 };
