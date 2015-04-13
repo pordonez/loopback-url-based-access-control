@@ -17,20 +17,17 @@ have access to that URL and sub URLs and what type of access.
 This repository serves as a sample implementation for URL-level
 access control.  
 
-* Note that a better solution for URL level access control
-might be to use a specialize product such as OpenAM *
+*Note that a better solution for URL level access control
+might be to use a specialize product such as OpenAM*
 
 
-## Implementation Components
-### Access Manager
+## Core Component
+Access Manager
 
-### Boot
+## Implementation Examples 
+Project
 
-### Sample usage
-
-#### Project
-
-#### Team
+Team
 
 
 
