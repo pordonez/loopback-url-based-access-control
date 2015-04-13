@@ -25,6 +25,7 @@ this objective, the following concepts are conceived.
 
 ######Access Levels
 Two levels of access are conceived as follows:
+
 1. Read level - Enables a particular user to perform read and execute operations on a model
 instance identified by its URL.
 2. Admin level - Enables a particular user to to perform read, write and execute operations
