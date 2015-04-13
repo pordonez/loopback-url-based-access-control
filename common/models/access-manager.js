@@ -44,7 +44,6 @@ module.exports = function(AccessManager) {
       debug('resolver() nextTick() Searching for userId = %s', principals[0].id);
 
       AccessManager.find(searchFor, function(err, rules) {
-        var allowed = true;
         debug('resolver() nextTick() find result. id: ' + principals[0].id + 
               ' access manager rules: ' + util.inspect(rules) +
               ' err: ' + err);
@@ -65,7 +64,28 @@ module.exports = function(AccessManager) {
         if (!filteredRules.length)
           return reject();
 
+        var longestRule = null;
+        filteredRules.forEach(
+          function(rule) {
+            if (!longestRule || rule.baseUrl.length > longestRule.baseUrl.length)
+              longestRule = rule;
+          });
+        
+        var allowed = false;      
+        switch (longestRule.roleType) {
+          case AccessManager.ADMIN:
+            allowed = true;
+            break;
+          case AccessManager.WRITER:
+            context.accessType != 'EXECUTE'?true:false;
+            break;
+          case AccessManager.READER:
+            context.accessType != 'EXECUTE' && context.accessType != 'WRITE'?true:false;
+            break;
+        }
+
         debug('resolver() nextTick() role: ' + util.inspect(role) + 
+              ', accessType', context.accessType +
               ', principals: ' + util.inspect(context.principals) +
               ', originalUrl: ' + originalUrl + 
               ', allowed: ' + allowed);
