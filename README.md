@@ -40,7 +40,18 @@ at a unique URL.
 * For a particular model instance, a user is either unauthorized, an admin or a reader.
 * A model instance may more than one admin or reader.
 * A model instance admin may assign other admins and readers
-* Access control is applied to a particular model instance and related instances when identified by URL and related sub URLs if no other access control policy is in effect.
+* Access control is applied to a particular model instance and related instances identified by URL and related sub URLs if no other access control policy is in effect.
+
+###### Scenario
+Let's consider the following scenario:
+* A model is created that consists of a Project identified as /Project/1 that is related to a Team identified by /Project/1/Team/1 and a Folder identified as /Project/1/Folder/1
+* User Peter has admin access to /Project/1, user Paul has reader access to /Project/1, and user Mary has reader access to /Project/1 and admin access to /Project/1/Folder/1
+ 
+The consequence of this scenario follows:
+
+* Peter is allowed to invoke read, write and execute operations against all model instances rooted at /Project/1.  
+* Paul is allowed to invoke read and execute operations against all model instances rooted at /Project/1. 
+* Mary is allowed to invoke read and execute operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
 
 ### Core Component
 Access Manager
