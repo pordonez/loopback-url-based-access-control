@@ -1,4 +1,4 @@
-# Overview
+## Overview
 StrongLoop LoopBack, a Node.js based framework, supports the ability
 to define types (known as a models a la MVC) and easily expose them
 via a RESTful API and persist them via LoopBack's ORM feature.  
@@ -21,16 +21,16 @@ access control.
 might be to use a specialize product such as OpenAM *
 
 
-# Implementation Components
-## Access Manager
+## Implementation Components
+### Access Manager
 
-## Boot
+### Boot
 
-## Sample usage
+### Sample usage
 
-### Project
+#### Project
 
-### Team
+#### Team
 
 
 
