@@ -5,16 +5,16 @@ via a RESTful API and persist them via LoopBack's ORM feature.
 
 LoopBack also provides the ability to define access controls on models
 via Roles and ACLs.  The access control feature works at the model level.
-That is, for a particular model type, LoopBack supports the ability
+That is, for a particular model or type, LoopBack supports the ability
 to specify which users or roles have access and the type of access
 to that particular model or type.   
 
 While access control at the granularity of a model is nice, I
 wanted to be able to specify access control at the URL level.  That is,
-for a particular URL, I wanted to be able to specify which users
+for a particular (RESTful) URL, I wanted to be able to specify which users
 have access to that URL and sub URLs and what type of access.
 
-This repository serves as a sample implementation for URL-level
+This repository serves as a sample implementation for URL-based
 access control.  
 
 *Note that a better solution for URL level access control
