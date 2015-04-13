@@ -25,19 +25,19 @@ access type as follows: read, write, execute.
 As previously mentioned, the objective is for URL or path level access control.  To meet
 this objective, the following concepts are conceived.
 
-Access Levels
+####Access Levels
 Two levels of access are conceived as follows:
 * Read level - Enables a particular user to perform read and execute operations on a model
 instance identified by its URL
 * Admin level - Enables a particular user to to perform read, write and execute operations
 on a model instance based on its URL.
 
-Access Policy
-An access control policy are the rules that specify which users are allowed to
+####Access Policy
+An access policy are the rules that specify which users are allowed to
 perform which operations on a particular model instance and related instances rooted
 at a uniquely identified via its URL
 
-Requirements
+####Requirements
 * A model instance should be able to have more than one admin
 * Access control should be applied to a particular URL and sub URLs
 if no other access control policy is in effect.
