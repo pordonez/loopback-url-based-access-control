@@ -4,7 +4,7 @@ to define types (known as a models a la MVC) and easily expose them
 via a RESTful API and persist them via LoopBack's ORM feature.  
 
 LoopBack also provides the ability to define access controls on models
-via Roles and ACLs.  The access control feature works at the model level.
+via Roles and ACLs.  LoopBack access control feature works at the model level.
 That is, for a particular model or type, LoopBack supports the ability
 to specify which users or roles have access and the type of access
 to that particular model or type.   
@@ -17,14 +17,14 @@ have access to that URL and sub URLs and what type of access.
 This repository serves as a sample implementation for URL-based
 access control using LoopBack.  
 
-### Concept Elaborated
+### Concept
 [As described in the LoopBack controlling data access documentation](http://docs.strongloop.com/display/public/LB/Controlling+data+access),
 LoopBack categorizes operations against models according to 
-access type as follows: read, write, execute. The objective is for URL or path level access control.  To meet
-this objective, the following concepts are conceived.
+access type as follows: read, write, execute. To meet
+URL or path level access control requirement, the following concepts are defined.
 
 ######Access Levels
-Two levels of access are conceived as follows:
+Two levels of access are defined as follows:
 
 1. Read level - Enables a particular user to perform read and execute operations on a model
 instance identified by its URL.
@@ -32,20 +32,19 @@ instance identified by its URL.
 on a model instance based on its URL.
 
 ######Access Policy
-An access policy are the rules that specify which users are allowed to
+Access policies are the rules that specify which users are allowed to
 perform which operations on a particular model instance and related instances rooted
 at a unique URL.
 
-######Supplementary Requirements
+######Observations
 * For a particular model instance, a user is either unauthorized, an admin or a reader.
-* A model instance may more than one admin or reader.
-* A model instance admin may assign other admins and readers
+* A model instance may have more than one admin or reader.
 * Access control is applied to a particular model instance and related instances identified by URL and related sub URLs if no other access control policy is in effect.
 
 ###### Scenario
 Let's consider the following scenario:
-* A model is created that consists of a Project identified as /Project/1 that is related to a Team identified by /Project/1/Team/1 and a Folder identified as /Project/1/Folder/1
-* User Peter has admin access to /Project/1, user Paul has reader access to /Project/1, and user Mary has reader access to /Project/1 and admin access to /Project/1/Folder/1
+* A model is created that consists of a Project identified as /Project/1 that is related to a Team identified by /Project/1/Team/1 and an Activity identified as /Project/1/Activity/1
+* User Peter has admin access to /Project/1, user Paul has reader access to /Project/1, and user Mary has reader access to /Project/1 and admin access to /Project/1/Activity/1
  
 The consequence of this scenario follows:
 
@@ -54,7 +53,7 @@ The consequence of this scenario follows:
 * Mary is allowed to invoke read and execute operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
 
 ### Core Component
-Access Manager
+Access Rule
 
 ### Implementation Examples 
 Project
