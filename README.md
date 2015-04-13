@@ -24,7 +24,7 @@ access type as follows: read, write, execute. To meet
 URL or path level access control requirement, the following concepts are defined.
 
 ######Access Levels
-Two levels of access are defined as follows:
+Two levels of URL access are defined as follows:
 
 1. Read level - Enables a particular user to perform read and execute operations on a model
 instance identified by its URL.
@@ -36,7 +36,7 @@ Access policies are the rules that specify which users are allowed to
 perform which operations on a particular model instance and related instances rooted
 at a unique URL.
 
-######Observations
+######Axioms
 * For a particular model instance, a user is either unauthorized, an admin or a reader.
 * A model instance may have more than one admin or reader.
 * Access control is applied to a particular model instance and related instances identified by URL and related sub URLs if no other access control policy is in effect.
