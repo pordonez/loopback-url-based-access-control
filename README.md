@@ -1,11 +1,7 @@
-I wanted to ability in strongloop loopback to enforce access policies
-at the URL level.  That is, for a particuar URL and for URLs under that 
-URL, I wanted the ability to enforce who can administer, write, or read
-content in and under that URL.
-
-The goal of this project is to add suppot for URL based access control
-to stongloop loopback by emulating the Unix type behavior of a user's 
-ability to read, write or execute particular file or folder requests. 
+strongloop loopback provides good support for model based access control.  
+That is, access is controled at the model or type level. What doesn't appear
+to be supported as of the 2.14 release is the ability to control access
+at the URL level.    
 
 For a particular URL, this project provides support for users to be
 administrators, writers or readers of a particular URL and associated 
