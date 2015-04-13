@@ -37,9 +37,10 @@ perform which operations on a particular model instance and related instances ro
 at a unique URL.
 
 ######Supplementary Requirements
-* A model instance should be able to have more than one admin
-* Access control should be applied to a particular URL and sub URLs
-if no other access control policy is in effect.
+* For a particular model instance, a user is either unauthorized, an admin or a reader.
+* A model instance may more than one admin or reader.
+* A model instance admin may assign other admins and readers
+* Access control is applied to a particular model instance and related instances when identified by URL and related sub URLs if no other access control policy is in effect.
 
 ### Core Component
 Access Manager
