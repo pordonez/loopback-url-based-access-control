@@ -1,13 +1,12 @@
-strongloop loopback provides good support for model based access control.  
-That is, access is controled at the model or type level. What doesn't appear
-to be supported as of the 2.14 release is the ability to control access
-at the URL level.    
+Strongloop Loopback provides support for model based access control.  
+That is, access is controled at the model or type level. 
+Model specifications in JSON specify the access control rules. 
 
-For a particular URL, this project provides support for users to be
-administrators, writers or readers of a particular URL and associated 
-sub URLS.  If a user has administrative access to a particular URL, he/she
-has the ability to read, write, or execute commands to that and succeeding
-URLS.  The same is true for read, write and execute.
+What doesn't appear to be supported without customization as of the 
+2.14 release is the ability to control access
+at the URL level.  That is, for a particualar URL, the sytem should be able
+to specify which user's have administrative, write and read access to that
+URL and sub URLs. 
 
 The implemetation defines the following:
 - All models requiring URL based access support must include an "accessControl"
