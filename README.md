@@ -54,12 +54,18 @@ The consequence of this scenario follows:
 * Mary is allowed to invoke read and execute operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
 
 ### Core Component
-Access Rule
+######AccessRule
+AccessRule is a LoopBack model located in ./common/models/access-rule.js*. AccessRule instances hold the data needed for access control.  Its fields include:
+* baseUrl - The URL being controlled
+* roleType - Currently either admin or reader as described above
+* userId - The user authorized to access the baseURL with the privileges specified by roleType
+ 
+AccessRule implements a LoopBack role resolver function that determines if a given user is authorized to access a given URL.  
 
 ### Implementation Examples 
-Project
+######Project
 
-Team
+######Team
 
 ### Notes/Disclaimers
 * A better solution would be to make the EXECUTE access type
