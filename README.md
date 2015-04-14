@@ -81,3 +81,5 @@ be better ways of meeting my requirements.
 * Please excuse any sloppiness in my description of any terms 
 or concepts. 
 
+* The implementation uses file-based persistence, which has limited query ability.  For example, in the the query to determine if a user has access control to a particuar URL, I would have used the SQL substring function, but since that query function is not available, I needed to iterate query results in the code.
+
