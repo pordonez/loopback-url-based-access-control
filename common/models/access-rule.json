@@ -1,5 +1,5 @@
 {
-  "name": "AccessManager",
+  "name": "AccessRule",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
@@ -18,6 +18,18 @@
       "foreignKey": "userId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "accessManager",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": []
 }

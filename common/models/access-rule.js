@@ -1,26 +1,13 @@
-var debug = require('../../node_modules/loopback/node_modules/debug')('aclmod:AccessManager');
+var debug = require('../../node_modules/loopback/node_modules/debug')('aclmod:AccessRule');
 var util = require('util');
 
-module.exports = function(AccessManager) {
+module.exports = function(AccessRule) {
 
-  AccessManager.ADMIN = 'admin';
-  AccessManager.READER = 'reader';
-  AccessManager.WRITER = 'writer';
+  AccessRule.ADMIN = 'admin';
+  AccessRule.READER = 'reader';
+  AccessRule.WRITER = 'writer';
 
-  AccessManager.manageUrl = function(roleType, 
-                                     baseUrl,
-                                     userId,
-                                     callback) {
-
-    AccessManager.create({baseUrl: baseUrl,
-                          roleType: roleType, 
-                          userId: userId}, function(err, am) {
-      debug('manageUrl() Creating AccessManager: ' + util.inspect(am) + ', err: ' + util.inspect(err));
-      if (callback) callback(err, am); else throw err;
-    });
-  };
-
-  AccessManager.resolver = function(role, context, cb) {
+  AccessRule.resolver = function(role, context, cb) {
     debug('resolver() Resolving role: ' + util.inspect(role));
     process.nextTick(function() {
 
@@ -43,7 +30,7 @@ module.exports = function(AccessManager) {
       var searchFor = {where: {userId: principals[0].id}};
       debug('resolver() nextTick() Searching for userId = %s', principals[0].id);
 
-      AccessManager.find(searchFor, function(err, rules) {
+      AccessRule.find(searchFor, function(err, rules) {
         debug('resolver() nextTick() find result. id: ' + principals[0].id + 
               ' access manager rules: ' + util.inspect(rules) +
               ' err: ' + err);
@@ -73,13 +60,13 @@ module.exports = function(AccessManager) {
         
         var allowed = false;      
         switch (longestRule.roleType) {
-          case AccessManager.ADMIN:
+          case AccessRule.ADMIN:
             allowed = true;
             break;
-          case AccessManager.WRITER:
+          case AccessRule.WRITER:
             context.accessType != 'EXECUTE'?true:false;
             break;
-          case AccessManager.READER:
+          case AccessRule.READER:
             context.accessType != 'EXECUTE' && context.accessType != 'WRITE'?true:false;
             break;
         }

@@ -7,7 +7,7 @@ module.exports = function(Project) {
 
   Project.afterRemote('create', function(context, project, next) {
     var Team = Project.app.models.Team;
-    var AccessManager = Project.app.models.AccessManager;
+    var AccessRule = Project.app.models.AccessRule;
     assert(context.req.accessToken, 'Projects may only be created by authenticated users');
 
     var accessToken = context.req.accessToken;
@@ -20,11 +20,11 @@ module.exports = function(Project) {
       debug('afterRemote(create) Creating team: ' + util.inspect(team) + ', err: ' + util.inspect(err));
       if (err) throw err;
 
-      AccessManager.manageUrl(AccessManager.ADMIN,
-                              context.req.baseUrl + '/' + project.id,
-                              accessToken.userId, 
-                              function(err, am) {
-        debug('afterRemote(create) Managing instance. am: ' + util.inspect(am) + ', err: ' + util.inspect(err), ', calling next()');
+      AccessRule.create({roleType: AccessRule.ADMIN,
+                         baseUrl: context.req.baseUrl + '/' + project.id,
+                         userId: accessToken.userId}, 
+                        function(err, rule) {
+        debug('afterRemote(create) access rule: ' + util.inspect(rule) + ', err: ' + util.inspect(err), ', calling next()');
         next();
       });
     });

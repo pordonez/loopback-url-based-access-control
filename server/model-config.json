@@ -39,7 +39,11 @@
     "dataSource": "db",
     "public": true
   },
-  "AccessManager": {
+  "AccessRule": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Activity": {
     "dataSource": "db",
     "public": true
   }
