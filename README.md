@@ -1,27 +1,28 @@
 ### Overview
 StrongLoop LoopBack, a Node.js based framework, supports the ability
-to define types (known as a models a la MVC) and easily expose them
-via a RESTful API and persist them via LoopBack's ORM feature.  
-
-LoopBack also provides the ability to define access controls on models
-via Roles and ACLs.  LoopBack access control feature works at the model level.
-That is, for a particular model or type, LoopBack supports the ability
-to specify which users or roles have access and the type of access
-to that particular model or type.   
+to define classes or types (known as a models) and easily expose them
+via a RESTful API and persist them via LoopBack's ORM feature.  LoopBack also 
+provides the ability to define access controls on models
+via roles and ACLs.  LoopBack access control feature works at the model level.
+That is, for a particular model, LoopBack supports the ability
+to specify the users or roles having access to the model
+and his or her access privileges.   
 
 While model level access control is useful, my requirement
 is to be able to to specify access control at the URL or path level.  That is,
-for a particular (RESTful) URL, I wanted to be able to specify which users
-have access to that URL and sub URLs and what type of access.
-
+for a particular (RESTful) URL, I wanted to be able to specify the users
+having access to that URL and sub URLs and his or her privileges.  I tried to find
+a solution using existing LoopBack mechanisms such as roles, role mappings and ACLs,
+but I was unable to, so I rolled my own.
 This repository serves as a sample implementation for URL-based
 access control using LoopBack.  
 
 ### Concept
 [As described in the LoopBack controlling data access documentation](http://docs.strongloop.com/display/public/LB/Controlling+data+access),
 LoopBack categorizes operations against models according to 
-access type as follows: read, write, execute. To meet
-URL or path level access control requirement, the following concepts are defined.
+access type as follows: read, write, execute. 
+
+The implementation defines the following concepts.
 
 ######Access Levels
 Two levels of URL access are defined as follows:
