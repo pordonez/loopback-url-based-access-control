@@ -1,26 +1,42 @@
 {
   "ids": {
     "User": 1,
-    "AccessToken": 100,
+    "AccessToken": 102,
     "ACL": 200,
     "RoleMapping": 300,
     "Role": 500,
-    "Project": 600,
-    "user": 700,
-    "Team": 800,
-    "AccessRule": 900
+    "Project": 601,
+    "user": 702,
+    "Team": 801,
+    "AccessRule": 903,
+    "Activity": 2
   },
   "models": {
     "User": {},
-    "AccessToken": {},
+    "AccessToken": {
+      "1WFMjptVjkfBCyKWdVndbZFGMMFP8Jq0QZJyhqt05lj1ARL51oJqcPqkiynwcBK5": "{\"id\":\"1WFMjptVjkfBCyKWdVndbZFGMMFP8Jq0QZJyhqt05lj1ARL51oJqcPqkiynwcBK5\",\"ttl\":1209600,\"created\":\"2015-04-15T18:35:05.599Z\",\"userId\":700}",
+      "OMNIcfHyS63BY2bDiy4oarxpX2nEhlKnbGsACOsU7gglafhDgFERHlVWPlvqXN6E": "{\"id\":\"OMNIcfHyS63BY2bDiy4oarxpX2nEhlKnbGsACOsU7gglafhDgFERHlVWPlvqXN6E\",\"ttl\":1209600,\"created\":\"2015-04-15T19:56:10.462Z\",\"userId\":701}"
+    },
     "ACL": {},
     "RoleMapping": {},
-    "Role": {
+    "Role": {},
+    "Project": {
+      "600": "{\"name\":\"aproject\",\"id\":600}"
     },
-    "Project": {},
     "user": {
+      "700": "{\"password\":\"$2a$10$6vijkv3U5JROea/7KH8caucevCi7cYCrpi6sU3XV2z2zJa7uXiYPG\",\"email\":\"auser@test.com\",\"id\":700}",
+      "701": "{\"password\":\"$2a$10$Ce6D1QwXsNb3MEAfPE0VTe5QCHSOKnjWI4y9SWmJU3S7qKtdgVJva\",\"email\":\"buser@test.com\",\"id\":701}"
     },
-    "Team": {},
-    "AccessRule": {}
+    "Team": {
+      "800": "{\"projectId\":600,\"userId\":700,\"id\":800}"
+    },
+    "AccessRule": {
+      "900": "{\"baseUrl\":\"/api/Projects/600\",\"accessType\":\"admin\",\"userId\":700,\"id\":900}",
+      "901": "{\"baseUrl\":\"/api/Projects/600\",\"accessType\":\"view\",\"userId\":\"701\",\"id\":901}",
+      "902": "{\"baseUrl\":\"/api/Projects/600/activities/1\",\"accessType\":\"admin\",\"userId\":\"701\",\"id\":902}"
+    },
+    "Activity": {
+      "1": "{\"name\":\"bactivity\",\"projectId\":600,\"id\":1}"
+    }
   }
 }

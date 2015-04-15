@@ -6,7 +6,7 @@
     "baseUrl": {
       "type": "string"
     },
-    "roleType": {
+    "accessType": {
       "type": "string"
     }
   },
@@ -23,11 +23,6 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "DENY"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "accessManager",
       "permission": "ALLOW"
     }
   ],

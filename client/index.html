@@ -1,71 +1,176 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-
-    <title>jellin'</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/starter-template/starter-template.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script><style type="text/css"></style>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/#">jellin'</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/#">Home</a></li>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-    <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BackboneTutorials.com Beginner Video</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+</head>
+<body>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
-  </body>  
-</html>
+  <div class="container">
+    <h1>Access Rules</h1>
+    <hr />
+    <div class="page"></div>
+  </div>
+
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+
+  <script type="text/template" id="access-rule-list-template">
+    <a href="#/new" class="btn btn-primary">New</a>
+    <hr />
+    <table class="table striped">
+      <thead>
+        <tr>
+          <th>User ID</th><th>Base URL</th><th>Access Type</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% _.each(accessRules, function(accessRule) { %>
+          <tr>
+            <td><%= htmlEncode(accessRule.get('userId')) %></td>
+            <td><%= htmlEncode(accessRule.get('baseUrl')) %></td>
+            <td><%= htmlEncode(accessRule.get('accessType')) %></td>
+            <td><a class="btn" href="#/edit/<%= accessRule.id %>">Edit</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </script>
+
+  <script type="text/template" id="edit-access-rule-template">
+    <form class="edit-access-rule-form">
+      <legend><%= accessRule ? 'Edit' : 'New' %> AccessRule</legend>
+        <label>User ID</label>
+        <input name="userId" type="text" value="<%= accessRule ? accessRule.get('userId') : '' %>">
+        <label>Base URL</label>
+        <input name="baseUrl" type="text" value="<%= accessRule ? accessRule.get('baseUrl') : '' %>">
+        <label>Access Type</label>
+        <input name="accessType" type="text" value="<%= accessRule ? accessRule.get('accessType') : '' %>">
+        <hr />
+       <button type="submit" class="btn"><%= accessRule ? 'Update' : 'Create' %></button>
+       <% if(accessRule) { %>
+        <input type="hidden" name="id" value="<%= accessRule.id %>" />
+       <button data-user-id="<%= accessRule.id %>" class="btn btn-danger delete">Delete</button>
+       <% }; %>
+    </form>
+  </script>
+
+  <script>
+    function htmlEncode(value){
+      return $('<div/>').text(value).html();
+    }
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+          if (o[this.name] !== undefined) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      return o;
+    };
+
+    $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+      options.url = '/api' + options.url;
+    });
+
+    var AccessRules = Backbone.Collection.extend({
+      url: '/AccessRules'
+    });
+
+    var AccessRule = Backbone.Model.extend({
+      urlRoot: '/AccessRules'
+    });
+
+    var AccessRuleListView = Backbone.View.extend({
+      el: '.page',
+      render: function () {
+        var that = this;
+        var accessRules = new AccessRules();
+        accessRules.fetch({
+          success: function (accessRules) {
+            var template = _.template($('#access-rule-list-template').html(), {accessRules: accessRules.models});
+            that.$el.html(template);
+          }
+        })
+      }
+    });
+
+    var accessRuleListView = new AccessRuleListView();
+
+    var AccessRuleEditView = Backbone.View.extend({
+      el: '.page',
+      events: {
+        'submit .edit-access-rule-form': 'saveAccessRule',
+        'click .delete': 'deleteAccessRule'
+      },
+      saveAccessRule: function (ev) {
+        var accessRuleDetails = $(ev.currentTarget).serializeObject();
+        var accessRule = new AccessRule();
+        accessRule.save(accessRuleDetails, {
+          success: function (accessRule) {
+            router.navigate('', {trigger:true});
+          }
+        });
+        return false;
+      },
+      deleteAccessRule: function (ev) {
+        this.accessRule.destroy({
+          success: function () {
+            console.log('destroyed');
+            router.navigate('', {trigger:true});
+          }
+        });
+        return false;
+      },
+      render: function (options) {
+        var that = this;
+        if(options.id) {
+          that.accessRule = new AccessRule({id: options.id});
+          that.accessRule.fetch({
+            success: function (accessRule) {    
+              var template = _.template($('#edit-access-rule-template').html(), {accessRule: accessRule});
+              that.$el.html(template);
+            }
+          })
+        } else {
+          var template = _.template($('#edit-access-rule-template').html(), {accessRule: null});
+          that.$el.html(template);
+        }
+      }
+    });
+
+    var accessRuleEditView = new AccessRuleEditView();
+
+    var Router = Backbone.Router.extend({
+        routes: {
+          "": "home", 
+          "edit/:id": "edit",
+          "new": "edit",
+        }
+    });
+
+    var router = new Router;
+    router.on('route:home', function() {
+      // render accessRule list
+      accessRuleListView.render();
+    })
+    router.on('route:edit', function(id) {
+      accessRuleEditView.render({id: id});
+    })
+    Backbone.history.start();
+  </script>
+
+
+</body>
+</html> 
+

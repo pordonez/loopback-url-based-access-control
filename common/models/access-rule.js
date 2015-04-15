@@ -4,8 +4,7 @@ var util = require('util');
 module.exports = function(AccessRule) {
 
   AccessRule.ADMIN = 'admin';
-  AccessRule.READER = 'reader';
-  AccessRule.WRITER = 'writer';
+  AccessRule.VIEW = 'view';
 
   AccessRule.resolver = function(role, context, cb) {
     debug('resolver() Resolving role: ' + util.inspect(role));
@@ -59,15 +58,12 @@ module.exports = function(AccessRule) {
           });
         
         var allowed = false;      
-        switch (longestRule.roleType) {
+        switch (longestRule.accessType) {
           case AccessRule.ADMIN:
             allowed = true;
             break;
-          case AccessRule.WRITER:
-            context.accessType != 'EXECUTE'?true:false;
-            break;
-          case AccessRule.READER:
-            context.accessType != 'EXECUTE' && context.accessType != 'WRITE'?true:false;
+          case AccessRule.VIEW:
+            allowed = context.accessType != 'EXECUTE' && context.accessType != 'WRITE'?true:false;
             break;
         }
 

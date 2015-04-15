@@ -12,12 +12,6 @@
       "through": "Team"
     }
   },
-  "acls": [
-    {
-      "principalType": "ROLE",
-      "principalId": "accessManager",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [],
   "methods": []
 }
