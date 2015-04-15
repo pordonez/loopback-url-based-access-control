@@ -47,7 +47,7 @@ The consequence of this scenario follows:
 
 * Peter is allowed to invoke read, write and execute operations against all model instances rooted at /Project/1.  
 * Paul is allowed to invoke read operations against all model instances rooted at /Project/1. 
-* Mary is allowed to invoke read operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
+* Mary is allowed to invoke read operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Activity/1.
 
 ### Core Component
 ######AccessRule
