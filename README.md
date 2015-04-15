@@ -57,15 +57,19 @@ The consequence of this scenario follows:
 ######AccessRule
 AccessRule is a LoopBack model located in ./common/models/access-rule.js*. AccessRule instances hold the data needed for access control.  Its fields include:
 * baseUrl - The URL being controlled
-* roleType - Currently either admin or view as described above
+* accessType - Currently either admin or view as described above
 * userId - The user authorized to access the baseURL with the privileges specified by roleType
  
 AccessRule implements a LoopBack role resolver function that determines if a given user is authorized to access a given URL.  
 
-### Implementation Examples 
-######Project
+### Implementation Examples
+Access rules may be added manually via a very simple web page located at ./index.html or programatically. 
 
-######Team
+######Project
+The Project model illustrates one programmatic way of adding a access rules. Project implements an afterRemote('create') function that creates an AccessRule to make an admin of the logged-in user for the project identified as /Project/1.
+
+######index.html
+index.html is a very simple web page for creating access rules.  The page includes views for listing currently created rules and creating new ones.
 
 ### Notes/Disclaimers
 * There may be some execute operations that are read-only so preventing viewers from all execute operations may be too restrictive.
