@@ -28,19 +28,15 @@ The URL-based access control feature defines the following concepts.
 Two levels of URL access are defined as follows:
 
 1. View level - Enables a particular user to perform read operations on a model
-instance identified by its URL.
+instance identified by its URL and any related instances identified as a sub URL.
 2. Admin level - Enables a particular user to to perform read, write and execute operations
-on a model instance based on its URL.
+on a model instance based on its URL and any related instances identified as a sub URL.
 
 ######Access Policy
 Access policies are the rules that specify which users are allowed to
 perform which operations on a particular model instance and related instances rooted
 at a unique URL.
 
-######Axioms
-* For a particular model instance, a user is either unauthorized, an admin or a viewer.
-* A model instance may have more than one admin or viewer.
-* Access control is applied to a particular model instance and related instances identified by URL and related sub URLs if no other access control policy is in effect.
 
 ###### Scenario
 Let's consider the following scenario:
