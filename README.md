@@ -27,7 +27,7 @@ The implementation defines the following concepts.
 ######Access Levels
 Two levels of URL access are defined as follows:
 
-1. Read level - Enables a particular user to perform read and execute operations on a model
+1. View level - Enables a particular user to perform read operations on a model
 instance identified by its URL.
 2. Admin level - Enables a particular user to to perform read, write and execute operations
 on a model instance based on its URL.
@@ -38,26 +38,26 @@ perform which operations on a particular model instance and related instances ro
 at a unique URL.
 
 ######Axioms
-* For a particular model instance, a user is either unauthorized, an admin or a reader.
-* A model instance may have more than one admin or reader.
+* For a particular model instance, a user is either unauthorized, an admin or a viewer.
+* A model instance may have more than one admin or viewer.
 * Access control is applied to a particular model instance and related instances identified by URL and related sub URLs if no other access control policy is in effect.
 
 ###### Scenario
 Let's consider the following scenario:
 * A model is created that consists of a Project identified as /Project/1 that is related to a Team identified by /Project/1/Team/1 and an Activity identified as /Project/1/Activity/1
-* User Peter has admin access to /Project/1, user Paul has reader access to /Project/1, and user Mary has reader access to /Project/1 and admin access to /Project/1/Activity/1
+* User Peter has admin access to /Project/1, user Paul has view access to /Project/1, and user Mary has view access to /Project/1 and admin access to /Project/1/Activity/1
  
 The consequence of this scenario follows:
 
 * Peter is allowed to invoke read, write and execute operations against all model instances rooted at /Project/1.  
-* Paul is allowed to invoke read and execute operations against all model instances rooted at /Project/1. 
-* Mary is allowed to invoke read and execute operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
+* Paul is allowed to invoke read operations against all model instances rooted at /Project/1. 
+* Mary is allowed to invoke read operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Folder/1.
 
 ### Core Component
 ######AccessRule
 AccessRule is a LoopBack model located in ./common/models/access-rule.js*. AccessRule instances hold the data needed for access control.  Its fields include:
 * baseUrl - The URL being controlled
-* roleType - Currently either admin or reader as described above
+* roleType - Currently either admin or view as described above
 * userId - The user authorized to access the baseURL with the privileges specified by roleType
  
 AccessRule implements a LoopBack role resolver function that determines if a given user is authorized to access a given URL.  
@@ -68,9 +68,7 @@ AccessRule implements a LoopBack role resolver function that determines if a giv
 ######Team
 
 ### Notes/Disclaimers
-* A better solution would be to make the EXECUTE access type
-more granular so that EXECUTE read operations could be
-distinguished from EXECUTE write operations.
+* There may be some execute operations that are read-only so preventing viewers from all execute operations may be too restrictive.
 
 * An enterprise level solution for URL level access control
 would be to use a specialize product such as OpenAM.
