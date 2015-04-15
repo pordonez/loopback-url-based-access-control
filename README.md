@@ -3,7 +3,7 @@ StrongLoop LoopBack, a Node.js based framework, supports the ability
 to define classes or types (known as a models) and easily expose them
 via a RESTful API and persist them via LoopBack's ORM feature.  LoopBack also 
 provides the ability to define access controls on models
-via roles and ACLs.  LoopBack access control feature works at the model level.
+via roles and ACLs.  LoopBack's access control feature works at the model level.
 That is, for a particular model, LoopBack supports the ability
 to specify the users or roles having access to the model
 and his or her access privileges.   
