@@ -22,7 +22,7 @@ access control using LoopBack.
 LoopBack categorizes operations against models according to 
 access type as follows: read, write, execute. 
 
-The implementation defines the following concepts.
+The URL-based access control feature defines the following concepts.
 
 ######Access Levels
 Two levels of URL access are defined as follows:
