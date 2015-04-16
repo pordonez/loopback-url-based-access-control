@@ -71,8 +71,8 @@ Looback's explorer and a custom index.html page are used to exercise the impleme
 3. Navigate to http://localhost:3000/ to view the access rules currently defined.
 4. Use the LoopBack explorer to create and login new users and create projects and activities.
 
-
-index.html is a very simple web page for creating access rules.  The page includes views for listing currently created rules and creating new ones.
+The file-based database included in the repository is called db.json and is located at the root of the repository.  The database includes the following data:
+* Two users with emails: auser@test.com and buser@test.com; their passwords are auser and buser respectively.  Use the LoopBack explorer login function to authenticate the users and test.
 
 ### Notes/Disclaimers
 * There may be some execute operations that are read-only so preventing viewers from all execute operations may be too restrictive.
