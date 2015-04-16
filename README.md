@@ -40,10 +40,10 @@ at a unique URL.
 
 ###### Scenario
 Let's consider the following scenario:
-* A model is created that consists of a Project identified as /Project/1 that is related to a Activity identified as /Project/1/Activity/1
-* User Peter has admin access to /Project/1, user Paul has view access to /Project/1, and user Mary has view access to /Project/1 and admin access to /Project/1/Activity/1
+* A model is created that consists of a Project identified as /Project/1 that is related to a Activity identified as /Project/1/activity/1
+* User Peter has admin access to /Project/1, user Paul has view access to /Project/1, and user Mary has view access to /Project/1 and admin access to /Project/1/activity/1
  
-The consequence of this scenario follows:
+As a result...
 
 * Peter is allowed to invoke read, write and execute operations against all model instances rooted at /Project/1.  
 * Paul is allowed to invoke read operations against all model instances rooted at /Project/1. 
