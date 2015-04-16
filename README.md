@@ -38,7 +38,7 @@ perform which operations on a particular model instance and related instances ro
 at a unique URL.
 
 
-###### Scenario
+#### Scenario
 Let's consider the following scenario:
 * A model is created that consists of a Project identified as /Project/1 that is related to a Activity identified as /Project/1/activity/1
 * User Peter has admin access to /Project/1, user Paul has view access to /Project/1, and user Mary has view access to /Project/1 and admin access to /Project/1/activity/1
@@ -61,6 +61,16 @@ AccessRule implements a LoopBack role resolver function that determines if a giv
 
 ######Project
 The Project model illustrates a programmatic way of adding a access rules. Project implements an afterRemote('create') function that creates an AccessRule to make an admin of the logged-in user for the project being created. The afterRemote('create') function also add the currently logged-in user as a team member of the project.
+
+Note that to control a model (e.g., Project), the model must include the following ACL permission. "accessManager" is the name of the role resolver registered function.
+```
+    {
+      "principalType": "ROLE",
+      "principalId": "accessManager",
+      "permission": "ALLOW"
+    }
+
+```
 
 ### Running the sample
 Looback's explorer and a custom index.html page are used to exercise the implementation.
