@@ -49,7 +49,8 @@ The consequence of this scenario follows:
 * Paul is allowed to invoke read operations against all model instances rooted at /Project/1. 
 * Mary is allowed to invoke read operations against all model instances rooted at /Project/1 and read, write and execute operations against all model instances rooted at /Project/1/Activity/1.
 
-### Core Component
+### Core Components
+
 ######AccessRule
 AccessRule is a LoopBack model located in ./common/models/access-rule.js*. AccessRule instances hold the data needed for access control.  Its fields include:
 * baseUrl - The URL being controlled
@@ -58,13 +59,15 @@ AccessRule is a LoopBack model located in ./common/models/access-rule.js*. Acces
  
 AccessRule implements a LoopBack role resolver function that determines if a given user is authorized to access a given URL.  
 
-### Implementation Examples
-Access rules may be added manually via a very simple web page located at ./index.html or programatically. 
-
 ######Project
 The Project model illustrates one programmatic way of adding a access rules. Project implements an afterRemote('create') function that creates an AccessRule to make an admin of the logged-in user for the project identified as /Project/1.
 
-######index.html
+### Running
+Do the following after cloning the repository:
+1. Install the depenant packages using, for example, npm install.
+2. 
+
+
 index.html is a very simple web page for creating access rules.  The page includes views for listing currently created rules and creating new ones.
 
 ### Notes/Disclaimers
