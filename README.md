@@ -40,7 +40,7 @@ at a unique URL.
 
 ###### Scenario
 Let's consider the following scenario:
-* A model is created that consists of a Project identified as /Project/1 that is related to a Team identified by /Project/1/Team/1 and an Activity identified as /Project/1/Activity/1
+* A model is created that consists of a Project identified as /Project/1 that is related to a Activity identified as /Project/1/Activity/1
 * User Peter has admin access to /Project/1, user Paul has view access to /Project/1, and user Mary has view access to /Project/1 and admin access to /Project/1/Activity/1
  
 The consequence of this scenario follows:
