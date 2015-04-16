@@ -83,8 +83,7 @@ would be to use a specialize product such as OpenAM.
 * I've only been working with LoopBack a short while. There may
 be better ways of meeting my requirements.
 
-* Please excuse any sloppiness in my description of any terms 
-or concepts. 
+* Access to the access control rules is wide open.  The AccessControl model should be locked-down, for example, using static model ACLs.
 
 * The implementation uses file-based persistence, which has limited query ability.  For example, in the the query to determine if a user has access control to a particuar URL, I would have used the SQL substring function, but since that query function is not available, I needed to iterate query results in the code.
 
