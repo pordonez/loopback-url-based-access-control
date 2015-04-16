@@ -60,12 +60,16 @@ AccessRule is a LoopBack model located in ./common/models/access-rule.js*. Acces
 AccessRule implements a LoopBack role resolver function that determines if a given user is authorized to access a given URL.  
 
 ######Project
-The Project model illustrates one programmatic way of adding a access rules. Project implements an afterRemote('create') function that creates an AccessRule to make an admin of the logged-in user for the project identified as /Project/1.
+The Project model illustrates a programmatic way of adding a access rules. Project implements an afterRemote('create') function that creates an AccessRule to make an admin of the logged-in user for the project being created. The afterRemote('create') function also add the currently logged-in user as a team member of the project.
 
-### Running
-Do the following after cloning the repository:
-1. Install the depenant packages using, for example, npm install.
-2. 
+### Running the sample
+Looback's explorer and a custom index.html page are used to exercise the implementation.
+
+1. Clone the repository.
+2. Install the depenant packages using, for example, npm install.
+2. Run "DEBUG=aclmod*" slc run" to start the server.
+3. Navigate to http://localhost:3000/ to view the access rules currently defined.
+4. Use the LoopBack explorer to create and login new users and create projects and activities.
 
 
 index.html is a very simple web page for creating access rules.  The page includes views for listing currently created rules and creating new ones.
