@@ -52,7 +52,7 @@ As a result...
 ### Core Components
 
 ######AccessRule
-AccessRule is a LoopBack model located in ./common/models/access-rule.js*. AccessRule instances hold the data needed for access control.  Its fields include:
+AccessRule is a LoopBack model located in ./common/models/access-rule.js[on]. AccessRule instances hold the data needed for access control.  Its fields include:
 * baseUrl - The URL being controlled
 * accessType - Currently either admin or view as described above
 * userId - The user authorized to access the baseURL with the privileges specified by roleType
@@ -72,8 +72,8 @@ Note that to control a model (e.g., Project), the model must include the followi
 
 ```
 
-### Running the sample
-Looback's explorer and a custom index.html page are used to exercise the implementation.
+### Running the repository content
+Looback's explorer and a custom index.html page are used to run the repository content and view results. To run the content, do the following:
 
 1. Clone the repository.
 2. Install the depenant packages using, for example, npm install.
